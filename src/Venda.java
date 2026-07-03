@@ -1,11 +1,11 @@
 import java.util.Date;
 public class Venda {
-    int codigo;
-    String data;
-    double total;
-    Item itensVendidos[];
-    int index = 0;
-    String nomeCliente;
+    private int codigo;
+    private String data;
+    private double total;
+    private Item itensVendidos[];
+    private int index = 0;
+    private String nomeCliente;
 
     boolean realizarVenda(int codigo, String nomeCliente, Carrinho carrinho, int dia, int mes, int ano) {
         if (carrinho == null || carrinho.index == 0) {

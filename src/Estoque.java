@@ -1,30 +1,31 @@
 public class Estoque {
-    ControladorMarca marcas = new ControladorMarca();
-    Produto[] produtos = new Produto[10];
-    int index = 0;
+    private ControladorMarca marcas = new ControladorMarca();
+    private Produto[] produtos = new Produto[10];
+    private int index = 0;
 
     //inserir
     boolean inserir(Produto produto, int codMarca) {
 
         //validacao nome
-        if (produto.nome.replace(" ", "").isEmpty()) {
+        if (produto.getNome().replace(" ", "").isEmpty()) {
             return false;
         }
 
         //validacao nome repetido
         for (int i = 0; i < index; i++) {
-            if (produtos[i].nome.trim().equalsIgnoreCase(produto.nome.trim())) {
+            if (produtos[i].getNome().trim().equalsIgnoreCase(produto.getNome().trim())) {
                 return false;
             }
         }
 
         //validacao preco
-        if (produto.preco <= 0) {
+        if (produto.getPreco() <= 0){
             return false;
         }
 
+
         //validacao qtd
-        if (produto.quant <= 0) {
+        if (produto.getQuant() <= 0) {
             return false;
         }
 
@@ -71,7 +72,7 @@ public class Estoque {
         Produto[] copia = new Produto[index];
         int x = 0;
         for (int i = 0; i < index; i++) {
-            if (produtos[i].marca == marca) {
+            if (produtos[i].getMarca() == marca) {
                 copia[x] = produtos[i];
                 x++;
             }
@@ -129,10 +130,10 @@ public class Estoque {
         }
 
         // busca da marca
-        produto.marca = marcas.buscarMarca(codMarca);
+        produto.getMarca() = marcas.buscarMarca(codMarca);
 
         // validacao marca
-        if (produto.marca == null) {
+        if (produto.getMarca() == null) {
             System.out.println("Marca não encontrada.");
             return;
         }
@@ -156,7 +157,7 @@ public class Estoque {
 
     int indiceCod(int cod) {
         for (int i = 0; i < index; i++) {
-            if (produtos[i].cod == cod) {
+            if (produtos[i].getCod() == cod) {
                 return i;
             }
         }
@@ -166,7 +167,7 @@ public class Estoque {
 
     boolean existeProdutoDaMarca(int codMarca) {
         for (int i = 0; i < index; i++) {
-            if (produtos[i].marca.cod == codMarca) {
+            if (produtos[i].getMarca().getCod() == codMarca) {
                 return true;
             }
         }

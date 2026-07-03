@@ -1,9 +1,23 @@
 import java.util.Date;
-// ET bilu dá o cu
 public class Sistema {
 
-    Estoque estoque = new Estoque();
-    Carrinho carrinho = new Carrinho();
+    private Estoque estoque = new Estoque();
+    private Carrinho carrinho = new Carrinho();
+
+    //Singleton dan vibecoder 10
+    private static Sistema instancia;
+    // Construtor privado
+    private Sistema() {
+        estoque = new Estoque();
+        carrinho = new Carrinho();
+    }
+
+    public static Sistema getInstancia() {
+        if (instancia == null) {
+            instancia = new Sistema();
+        }
+        return instancia;
+    }
 
     Venda vendas[] = new Venda[10];
     int index = 0;

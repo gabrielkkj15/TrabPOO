@@ -2,7 +2,7 @@ import java.util.Date;
 import java.util.Scanner;
 
 //Daniel Victor e Gabriel Barbosa
-
+//Confere se o push deu certo
 public class Main {
     static Scanner leia = new Scanner(System.in);
 

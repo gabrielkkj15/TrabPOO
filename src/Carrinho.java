@@ -1,7 +1,7 @@
 public class Carrinho {
 
-    Item itens[] = new Item[1];
-    double total;
+    private Item itens[] = new Item[1];
+    private double total;
     int index;
 
     boolean addItem(Item item) {

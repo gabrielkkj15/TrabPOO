@@ -1,6 +1,6 @@
 public class ControladorMarca {
-    Marca[] marcas = new Marca[10];
-    int index = 0;
+    private Marca[] marcas = new Marca[10];
+    private int index = 0;
 
     boolean inserir(Marca marca) {
 

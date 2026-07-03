@@ -1,9 +1,50 @@
 public class Produto {
-    int cod;
-    String nome;
-    Marca marca;
-    double preco;
-    int quant;
+    private int cod;
+    private String nome;
+    private Marca marca;
+    private double preco;
+    private int quant;
+
+    //getters
+    public double getPreco() {
+        return preco;
+    }
+    public String getNome() {
+        return nome;
+    }
+
+    public Marca getMarca() {
+        return marca;
+    }
+
+    public int getCod() {
+        return cod;
+    }
+
+    public int getQuant() {
+        return quant;
+    }
+
+    //setters
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setPreco(double preco) {
+        this.preco = preco;
+    }
+
+
+
+    public void setMarca(Marca marca) {
+        this.marca = marca;
+    }
+
+    public void setCod(int cod) {
+        this.cod = cod;
+    }
+
+
 
     boolean decrementar(int quant) {
         if (this.quant >= quant && quant > 0) {
@@ -20,7 +61,7 @@ public class Produto {
         if (quant > 0) {
             this.quant = this.quant + quant;
             return true;
-        } else{
+        } else {
             return false;
         }
     }

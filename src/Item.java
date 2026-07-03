@@ -1,7 +1,7 @@
 public class Item {
-    Produto produto;
-    int quant;
-    double subtotal;
+    private Produto produto;
+    private int quant;
+    private double subtotal;
 
 
 }
