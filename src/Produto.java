@@ -5,6 +5,19 @@ public class Produto {
     private double preco;
     private int quant;
 
+    //construtores
+    public Produto() {
+
+    }
+
+    public Produto(int cod, String nome, Marca marca, double preco, int quant) {
+        this.cod = cod;
+        this.nome = nome;
+        this.marca = marca;
+        this.preco = preco;
+        this.quant = quant;
+    }
+
     //getters
     public double getPreco() {
         return preco;
@@ -34,7 +47,9 @@ public class Produto {
         this.preco = preco;
     }
 
-
+    public void setQuant(int quant) {
+        this.quant = quant;
+    }
 
     public void setMarca(Marca marca) {
         this.marca = marca;

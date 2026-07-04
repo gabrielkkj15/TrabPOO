@@ -6,11 +6,11 @@ public class Carrinho {
 
     boolean addItem(Item item) {
 
-        if (item.quant > 0 && item.quant <= item.produto.quant) {
+        if (item.getQuant() > 0 && item.getQuant() <= item.getProduto().getQuant()) {
             for (int i = 0; i < index; i++) {
-                if (itens[i].produto.cod == item.produto.cod) {
-                    if (itens[i].quant + item.quant <= item.produto.quant) {
-                        itens[i].quant += item.quant;
+                if (itens[i].getProduto().getCod() == item.getProduto().getCod()) {
+                    if (itens[i].getQuant() + item.getQuant() <= item.getProduto().getQuant()) {
+                        itens[i].setQuant(itens[i].getQuant() + item.getQuant()); 
                         System.out.println("Deu certo!");
                     }else {
                         return false;
@@ -22,8 +22,8 @@ public class Carrinho {
                 aumentarCapacidade();
             }
 
-            item.subtotal = item.produto.preco * item.quant;
-            total += item.produto.preco * item.quant;
+            item.setSubtotal(item.getProduto().getPreco() * item.getQuant());
+            total += item.getProduto().getPreco() * item.getQuant();
             itens[index] = item;
             index++;
 
@@ -31,6 +31,14 @@ public class Carrinho {
         }
 
         return false;
+    }
+
+    public Item[] getItens() {
+        return itens;
+    }
+
+    public double getTotal() {
+        return total;
     }
 
     void aumentarCapacidade() {

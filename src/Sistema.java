@@ -60,7 +60,7 @@ public class Sistema {
         Venda[] vendas = new Venda[index];
 
         for (int i = 0; i < index; i++) {
-            if (this.vendas[i].data.equals(data)) {
+            if (this.vendas[i].getData().equals(data)) {
                 vendas[j++] = this.vendas[i];
             }
         }
@@ -72,7 +72,7 @@ public class Sistema {
 
             Venda venda = vendas[i];
 
-            for (int j = 0; j < venda.index; j++) {
+            for (int j = 0; j < venda.getIndex(); j++) {
                 if (venda.itensVendidos[j].produto.cod == codProduto) {
                     return true;
                 }
@@ -84,7 +84,7 @@ public class Sistema {
 
     int buscarVenda(int cod){
         for (int i = 0; i < index; i++) {
-            if (vendas[i].codigo == cod){
+            if (vendas[i].getCodigo() == cod){
                 return i;
             }
         }
@@ -100,4 +100,5 @@ public class Sistema {
 
          vendas = p;
     }
+
 }

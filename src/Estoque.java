@@ -32,21 +32,24 @@ public class Estoque {
         //busca da marca
         if(marcas.buscarMarca(codMarca) == null)return false;
 
-        produto.marca = marcas.buscarMarca(codMarca);
+        produto.setMarca(marcas.buscarMarca(codMarca));
 
         if (index == produtos.length) {
             aumentarCapacidade();
         }
 
         produtos[index] = produto;
-        produtos[index].cod = index+1;
+        produtos[index].setCod(index+1);
         index++;
 
         return true;
     }
 
-    //listar
+    public int getIndex() {
+        return index;
+    }
 
+    //listar
 
     Produto[] ordemAlfabetica() {
         Produto[] copia = new Produto[index];
@@ -58,7 +61,7 @@ public class Estoque {
         for (int i = 0; i < copia.length - 1; i++) {
             for (int j = 0; j < copia.length - i - 1; j++) {
 
-                if (copia[j].nome.compareToIgnoreCase(copia[j + 1].nome) > 0) {
+                if (copia[j].getNome().compareToIgnoreCase(copia[j + 1].getNome()) > 0) {
                     Produto temp = copia[j];
                     copia[j] = copia[j + 1];
                     copia[j + 1] = temp;
@@ -112,25 +115,25 @@ public class Estoque {
         }
 
         // validacao do nome
-        if (produto.nome.replace(" ", "").isEmpty()) {
+        if (produto.getNome().replace(" ", "").isEmpty()) {
             System.out.println("Erro - Campo vazio");
             return;
         }
 
         // validacao do preço
-        if (produto.preco <= 0) {
+        if (produto.getPreco() <= 0) {
             System.out.println("Erro - Preço inválido");
             return;
         }
 
         // validacao da quantidade
-        if (produto.quant <= 0) {
+        if (produto.getQuant() <= 0) {
             System.out.println("Erro - Quantidade inválida");
             return;
         }
 
         // busca da marca
-        produto.getMarca() = marcas.buscarMarca(codMarca);
+        produto.setMarca(marcas.buscarMarca(codMarca));
 
         // validacao marca
         if (produto.getMarca() == null) {
@@ -138,7 +141,7 @@ public class Estoque {
             return;
         }
 
-        produto.cod = produtos[x].cod;
+        produto.setCod(produtos[x].getCod());
         produtos[x] = produto;
 
         System.out.println("Produto alterado com sucesso.");

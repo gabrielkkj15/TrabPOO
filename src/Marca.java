@@ -4,6 +4,18 @@ public class Marca {
     private String fabricante;
     private String cnpj;
 
+    //construtores
+    public Marca() {
+
+    }
+
+    public Marca(int cod, String nomeFantasia, String fabricante, String cnpj ) {
+        this.cod = cod;
+        this.nomeFantasia = nomeFantasia;
+        this.fabricante = fabricante;
+        this.cnpj = cnpj;
+    }
+
     public int getCod() {
         return cod;
     }

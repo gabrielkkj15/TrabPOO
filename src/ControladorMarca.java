@@ -4,19 +4,19 @@ public class ControladorMarca {
 
     boolean inserir(Marca marca) {
 
-        if (marca.nomeFantasia.replace(" ", "").isEmpty()) {
+        if (marca.getNomeFantasia().replace(" ", "").isEmpty()) {
             return false;
         }
 
-        if (marca.cnpj.replace(" ", "").isEmpty()) {
+        if (marca.getCnpj().replace(" ", "").isEmpty()) {
             return false;
         }
 
-        if (marca.fabricante.replace(" ", "").isEmpty()) {
+        if (marca.getFabricante().replace(" ", "").isEmpty()) {
             return false;
         }
 
-        marca.cod = index + 1;
+        marca.setCod(index + 1);
 
         if (index == marcas.length) {
             aumentarCapacidade();
@@ -46,9 +46,9 @@ public class ControladorMarca {
             for (int j = 0; j < copia.length - i - 1; j++) {
 
                 if (copia[j] != null && copia[j+1] != null &&
-                        copia[j].nomeFantasia != null && copia[j+1].nomeFantasia != null) {
+                        copia[j].getNomeFantasia() != null && copia[j+1].getNomeFantasia() != null) {
 
-                    if (copia[j].nomeFantasia.compareToIgnoreCase(copia[j + 1].nomeFantasia) > 0) {
+                    if (copia[j].getNomeFantasia().compareToIgnoreCase(copia[j + 1].getNomeFantasia()) > 0) {
 
                         Marca temp = copia[j];
                         copia[j] = copia[j + 1];
@@ -87,22 +87,23 @@ public class ControladorMarca {
             return;
         }
 
-        if (marca.nomeFantasia.replace(" ", "").isEmpty()) {
+        if (marca.getNomeFantasia().replace(" ", "").isEmpty()) {
             return;
         }
 
-        if (marca.cnpj.replace(" ", "").isEmpty()) {
+        if (marca.getCnpj().replace(" ", "").isEmpty()) {
             return;
         }
 
-        if (marca.fabricante.replace(" ", "").isEmpty()) {
+        if (marca.getFabricante().replace(" ", "").isEmpty()) {
             return;
         }
 
-        marca.cod = marcas[x].cod;
+        marca.setCod(marcas[x].getCod());
+
         marcas[x] = marca;
-        for (int i = 0; i < estoque.index; i++) {
-            if(estoque.produtos[i].marca.cod == marca.cod){
+        for (int i = 0; i < estoque.getIndex(); i++) {
+            if(estoque.produtos[i].marca.cod == marca.getCod()){
                 estoque.produtos[i].marca = marca;
             }
         };
@@ -121,7 +122,7 @@ public class ControladorMarca {
     int indiceCod(int cod) {
         if (index > 0) {
             for (int i = 0; i < index; i++) {
-                if (marcas[i].cod == cod) {
+                if (marcas[i].getCod() == cod) {
                     return i;
                 }
             }

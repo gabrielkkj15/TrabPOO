@@ -27,7 +27,7 @@ public class Venda {
         this.codigo = codigo;
         this.nomeCliente = nomeCliente;
         this.data = dia + "/" + mes + "/" + ano;
-        this.total = carrinho.total;
+        this.total = carrinho.getTotal();
 
         this.itensVendidos = new Item[carrinho.index];
         for (int i = 0; i < carrinho.index; i++) {
@@ -36,6 +36,30 @@ public class Venda {
         }
 
         return true;
+    }
+
+    public String getNomeCliente() {
+        return nomeCliente;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public int getCodigo() {
+        return codigo;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public Item getItensVendidos() {
+        return itensVendidos;
     }
 
     boolean dataValida(int dia, int mes, int ano) {

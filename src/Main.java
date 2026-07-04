@@ -2,7 +2,6 @@ import java.util.Date;
 import java.util.Scanner;
 
 //Daniel Victor e Gabriel Barbosa
-//Confere se o push deu certo
 public class Main {
     static Scanner leia = new Scanner(System.in);
 
@@ -47,89 +46,42 @@ public class Main {
 
     public static void init(Sistema sistema) {
 
-        Marca m1 = new Marca();
-        m1.cod = 1;
-        m1.nomeFantasia = "Nike";
-        m1.fabricante = "Nike Inc.";
-        m1.cnpj = "11.111.111/0001-11";
+        Marca m1 = new Marca(1, "Nike", "Nike Inc.", "11.111.111/0001-11");
 
-        Marca m2 = new Marca();
-        m2.cod = 2;
-        m2.nomeFantasia = "Adidas";
-        m2.fabricante = "Adidas AG";
-        m2.cnpj = "22.222.222/0001-22";
+        Marca m2 = new Marca(2, "Adidas", "Adidas AG", "22.222.222/0001-22");
 
-        Marca m3 = new Marca();
-        m3.cod = 3;
-        m3.nomeFantasia = "Puma";
-        m3.fabricante = "Puma SE";
-        m3.cnpj = "33.333.333/0001-33";
+        Marca m3 = new Marca(3, "Puma",  "Puma SE", "33.333.333/0001-33");
 
         sistema.estoque.marcas.inserir(m1);
         sistema.estoque.marcas.inserir(m2);
         sistema.estoque.marcas.inserir(m3);
 
-        Produto p1 = new Produto();
-        p1.cod = 1;
-        p1.nome = "Chuteira Mercurial";
-        p1.preco = 799.90;
-        p1.quant = 10;
+        Produto p1 = new Produto(1,"Chuteira Mercurial", m1 ,799.90,10);
 
-        Produto p2 = new Produto();
-        p2.cod = 2;
-        p2.nome = "Tênis Air Max";
-        p2.preco = 599.90;
-        p2.quant = 8;
+        Produto p2 = new Produto(2, "Tênis Air Max", m2, 599.99, 8);
 
-        Produto p3 = new Produto();
-        p3.cod = 3;
-        p3.nome = "Camisa Real Madrid";
-        p3.preco = 349.90;
-        p3.quant = 15;
+        Produto p3 = new Produto(3, "Camisa Real Madrid", m2, 349.90, 15);
 
-        Produto p4 = new Produto();
-        p4.cod = 4;
-        p4.nome = "Chuteira Predator";
-        p4.preco = 899.90;
-        p4.quant = 6;
+        Produto p4 = new Produto(4, "Chuteira Predator", m2, 899.90, 6);
 
-        Produto p5 = new Produto();
-        p5.cod = 5;
-        p5.nome = "Camisa Manchester City";
-        p5.preco = 299.90;
-        p5.quant = 12;
+        Produto p5 = new Produto(5, "Camisa Manchester City", m3, 299.90, 12);
 
-        Item i1 = new Item();
-        i1.produto = p1;
-        i1.quant = 1;
-        i1.subtotal = p1.preco * i1.quant;
+        Item i1 = new Item(p1, 1);
 
-        Item i2 = new Item();
-        i2.produto = p3;
-        i2.quant = 2;
-        i2.subtotal = p3.preco * i2.quant;
+        Item i2 = new Item(p3, 2);
 
         sistema.carrinho.addItem(i1);
         sistema.carrinho.addItem(i2);
         sistema.finalizarVenda("Gabriel Barbosa", 10, 5, 2026);
 
-        Item i3 = new Item();
-        i3.produto = p2;
-        i3.quant = 1;
-        i3.subtotal = p2.preco * i3.quant;
+        Item i3 = new Item(p2, 1);
 
         sistema.carrinho.addItem(i3);
         sistema.finalizarVenda("Daniel Victor", 15, 5, 2026);
 
-        Item i4 = new Item();
-        i4.produto = p4;
-        i4.quant = 1;
-        i4.subtotal = p4.preco * i4.quant;
+        Item i4 = new Item(p4, 1);
 
-        Item i5 = new Item();
-        i5.produto = p5;
-        i5.quant = 3;
-        i5.subtotal = p5.preco * i5.quant;
+        Item i5 = new Item(p5, 3);
 
         sistema.carrinho.addItem(i4);
         sistema.carrinho.addItem(i5);
@@ -186,9 +138,9 @@ public class Main {
                         leia.nextLine();
 
                         Item item = new Item();
-                        item.produto = produto;
-                        item.quant = quant;
-                        item.subtotal = produto.preco * quant;
+                        item.setProduto(produto);
+                        item.setQuant(quant);
+                        item.setSubtotal(produto.getPreco() * quant);
 
                         if (sistema.carrinho.addItem(item)) {
                             System.out.println("Produto adicionado!");
@@ -298,13 +250,13 @@ public class Main {
                     Marca marca = new Marca();
 
                     System.out.println("Nome Fantasia:");
-                    marca.nomeFantasia = leia.nextLine();
+                    marca.setNomeFantasia(leia.nextLine()) ;
 
                     System.out.println("CNPJ:");
-                    marca.cnpj = leia.nextLine();
+                    marca.setCnpj(leia.nextLine());
 
                     System.out.println("Fabricante:");
-                    marca.fabricante = leia.nextLine();
+                    marca.setFabricante(leia.nextLine());
 
                     sistema.estoque.marcas.inserir(marca);
 
@@ -335,13 +287,13 @@ public class Main {
                     marca = new Marca();
 
                     System.out.println("Nome Fantasia:");
-                    marca.nomeFantasia = leia.nextLine();
+                    marca.setNomeFantasia(leia.nextLine()) ;
 
                     System.out.println("CNPJ:");
-                    marca.cnpj = leia.nextLine();
+                    marca.setCnpj(leia.nextLine());
 
                     System.out.println("Fabricante:");
-                    marca.fabricante = leia.nextLine();
+                    marca.setFabricante(leia.nextLine());
 
                     sistema.estoque.marcas.alterar(cod, marca, sistema.estoque);
 
@@ -399,17 +351,17 @@ public class Main {
                     Produto produto = new Produto();
 
                     System.out.println("Código:");
-                    produto.cod = leia.nextInt();
+                    produto.setCod(leia.nextInt());
                     leia.nextLine();
 
                     System.out.println("Nome:");
-                    produto.nome = leia.nextLine();
+                    produto.setNome(leia.nextLine());
 
                     System.out.println("Preço:");
-                    produto.preco = leia.nextDouble();
+                    produto.setPreco(leia.nextDouble());
 
                     System.out.println("Quantidade:");
-                    produto.quant = leia.nextInt();
+                    produto.setQuant(leia.nextInt());
 
                     tabela(
                             sistema.estoque.marcas.marcas,
@@ -447,13 +399,13 @@ public class Main {
                     produto = new Produto();
 
                     System.out.println("Nome:");
-                    produto.nome = leia.nextLine();
+                    produto.setNome(leia.nextLine());
 
                     System.out.println("Preço:");
-                    produto.preco = leia.nextDouble();
+                    produto.setPreco(leia.nextDouble());
 
                     System.out.println("Quantidade:");
-                    produto.quant = leia.nextInt();
+                    produto.setQuant(leia.nextInt());
 
                     tabela(
                             sistema.estoque.marcas.marcas,
@@ -593,7 +545,7 @@ public class Main {
                     int codVenda = leia.nextInt();
                     leia.nextLine();
                     if (sistema.buscarVenda(codVenda) != -1) {
-                        tabela(sistema.vendas[sistema.buscarVenda(codVenda)].itensVendidos, sistema.vendas[sistema.buscarVenda(codVenda)].index, tam);
+                        tabela(sistema.vendas[sistema.buscarVenda(codVenda)].getItensVendidos(), sistema.vendas[sistema.buscarVenda(codVenda)].index, tam);
                     }else{
                         System.out.println("Codigo invalido!");
                     }
@@ -641,10 +593,10 @@ public class Main {
             }
 
             System.out.printf(formato,
-                    formatarTexto(String.valueOf(marcas[i].cod), tam),
-                    formatarTexto(marcas[i].nomeFantasia, tam),
-                    formatarTexto(marcas[i].cnpj, tam),
-                    formatarTexto(marcas[i].fabricante, tam)
+                    formatarTexto(String.valueOf(marcas[i].getCod(), tam),
+                    formatarTexto(marcas[i].getNomeFantasia(), tam),
+                    formatarTexto(marcas[i].getCnpj(), tam),
+                    formatarTexto(marcas[i].getFabricante(), tam)
             );
         }
     }
@@ -674,11 +626,11 @@ public class Main {
             }
 
             System.out.printf(formato,
-                    formatarTexto(String.valueOf(produtos[i].cod), tam),
-                    formatarTexto(produtos[i].nome, tam),
-                    formatarTexto(produtos[i].marca.nomeFantasia, tam),
-                    formatarTexto(String.format("%.2f", produtos[i].preco), tam),
-                    formatarTexto(String.valueOf(produtos[i].quant), tam)
+                    formatarTexto(String.valueOf(produtos[i].getCod(), tam),
+                    formatarTexto(produtos[i].getNome(), tam),
+                    formatarTexto(produtos[i].getMarca().getNomeFantasia(), tam),
+                    formatarTexto(String.format("%.2f", produtos[i].getPreco(), tam),
+                    formatarTexto(String.valueOf(produtos[i].getQuant(), tam)
             );
         }
     }
@@ -706,9 +658,9 @@ public class Main {
             }
 
             System.out.printf(formato,
-                    formatarTexto(String.valueOf(vendas[i].codigo), tam),
-                    formatarTexto(vendas[i].nomeCliente, tam),
-                    formatarTexto(String.format("%.2f", vendas[i].total), tam)
+                    formatarTexto(String.valueOf(vendas[i].getCodigo()), tam),
+                    formatarTexto(vendas[i].getNomeCliente(), tam),
+                    formatarTexto(String.format("%.2f", vendas[i].getTotal()), tam)
             );
         }
     }
@@ -736,9 +688,9 @@ public class Main {
             }
 
             System.out.printf(formato,
-                    formatarTexto(itens[i].produto.nome, tam),
-                    formatarTexto(String.valueOf(itens[i].quant), tam),
-                    formatarTexto(String.format("%.2f", itens[i].subtotal), tam)
+                    formatarTexto(itens[i].getProduto().getNome(), tam),
+                    formatarTexto(String.valueOf(itens[i].getQuant(),tam),
+                    formatarTexto(String.format("%.2f", itens[i].getSubtotal()), tam)
             );
         }
     }
