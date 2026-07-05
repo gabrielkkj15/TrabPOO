@@ -1,7 +1,8 @@
+import java.util.ArrayList;
+import java.util.List;
 public class Estoque {
-    private ControladorMarca marcas = new ControladorMarca();
-    private Produto[] produtos = new Produto[10];
-    private int index = 0;
+    protected ControladorMarca marcas = new ControladorMarca();
+    private ArrayList<Produto> produtos = new ArrayList<>();
 
     //inserir
     boolean inserir(Produto produto, int codMarca) {
@@ -12,8 +13,8 @@ public class Estoque {
         }
 
         //validacao nome repetido
-        for (int i = 0; i < index; i++) {
-            if (produtos[i].getNome().trim().equalsIgnoreCase(produto.getNome().trim())) {
+        if(!produtos.isEmpty())for (int i = 0; i < produtos.size(); i++) {
+            if (produtos.get(i).getNome().trim().equalsIgnoreCase(produto.getNome().trim())) {
                 return false;
             }
         }
@@ -34,29 +35,14 @@ public class Estoque {
 
         produto.setMarca(marcas.buscarMarca(codMarca));
 
-        if (index == produtos.length) {
-            aumentarCapacidade();
-        }
-
-        produtos[index] = produto;
-        produtos[index].setCod(index+1);
-        index++;
-
+        produtos.add(produto);
         return true;
-    }
-
-    public int getIndex() {
-        return index;
     }
 
     //listar
 
     Produto[] ordemAlfabetica() {
-        Produto[] copia = new Produto[index];
-
-        for (int i = 0; i < index; i++) {
-            copia[i] = this.produtos[i];
-        }
+        Produto[] copia = produtos.toArray(Produto[]::new);
 
         for (int i = 0; i < copia.length - 1; i++) {
             for (int j = 0; j < copia.length - i - 1; j++) {
@@ -72,15 +58,17 @@ public class Estoque {
     }
 
     Produto[] porMarca(Marca marca) {
-        Produto[] copia = new Produto[index];
+        ArrayList<Produto> a = new ArrayList<>();
         int x = 0;
-        for (int i = 0; i < index; i++) {
-            if (produtos[i].getMarca() == marca) {
-                copia[x] = produtos[i];
-                x++;
+        for (Produto produto : produtos) {
+            if (produto.getMarca() == marca) {
+                a.add(produto);
             }
         }
-        return copia;
+        if (!produtos.isEmpty()){
+            return a.toArray(Produto[]::new);
+        }
+        return null;
     }
 
 
@@ -89,13 +77,7 @@ public class Estoque {
         int x = indiceCod(cod);
         if (sistema.produtoPossuiVenda(cod)){return false;}
         if (x != -1) {
-            for (int i = x; i < index - 1; i++) {
-                produtos[i] = produtos[i + 1];
-            }
-
-            produtos[index - 1] = null;
-            index--;
-
+            produtos.remove(x);
             System.out.println("Produto removido com sucesso.");
             return true;
         } else {
@@ -141,26 +123,20 @@ public class Estoque {
             return;
         }
 
-        produto.setCod(produtos[x].getCod());
-        produtos[x] = produto;
+        Produto produtoExistente = produtos.get(x);
+
+        produtoExistente.setNome(produto.getNome());
+        produtoExistente.setPreco(produto.getPreco());
+        produtoExistente.setQuant(produto.getQuant());
+        produtoExistente.setMarca(marcas.buscarMarca(codMarca));
 
         System.out.println("Produto alterado com sucesso.");
     }
 
-    //aumertar vetor
-    void aumentarCapacidade() {
-        Produto[] p = new Produto[produtos.length + 10];
-
-        for (int i = 0; i < index; i++) {
-            p[i] = produtos[i];
-        }
-
-        produtos = p;
-    }
 
     int indiceCod(int cod) {
-        for (int i = 0; i < index; i++) {
-            if (produtos[i].getCod() == cod) {
+        for (int i = 0; i < produtos.size(); i++) {
+            if (produtos.get(i).getCod() == cod) {
                 return i;
             }
         }
@@ -169,11 +145,16 @@ public class Estoque {
     }
 
     boolean existeProdutoDaMarca(int codMarca) {
-        for (int i = 0; i < index; i++) {
-            if (produtos[i].getMarca().getCod() == codMarca) {
+        for (int i = 0; i < produtos.size(); i++) {
+            if (produtos.get(i).getMarca().getCod() == codMarca) {
                 return true;
             }
         }
         return false;
     }
+
+
+
+
+
 }

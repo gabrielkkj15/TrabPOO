@@ -1,6 +1,7 @@
+import java.util.ArrayList;
+
 public class ControladorMarca {
-    private Marca[] marcas = new Marca[10];
-    private int index = 0;
+    private ArrayList<Marca> marcas = new ArrayList<>();
 
     boolean inserir(Marca marca) {
 
@@ -16,32 +17,24 @@ public class ControladorMarca {
             return false;
         }
 
-        marca.setCod(index + 1);
+        marca.setCod(marcas.size());
 
-        if (index == marcas.length) {
-            aumentarCapacidade();
-        }
-
-        marcas[index] = marca;
-        index++;
+        marcas.add(marca);
         return  true;
     }
 
     Marca buscarMarca(int cod) {
         int i = indiceCod(cod);
         if (i != -1) {
-            return marcas[i];
+            for (int j = 0; j < marcas.size(); j++) {
+                if (marcas.get(j).getCod()==cod)return marcas.get(j);
+            }
         }
         return null;
     }
 
     Marca[] listar() {
-        Marca[] copia = new Marca[index];
-
-        for (int i = 0; i < index; i++) {
-            copia[i] = this.marcas[i];
-        }
-
+        Marca[] copia = marcas.toArray(Marca[]::new);
         for (int i = 0; i < copia.length - 1; i++) {
             for (int j = 0; j < copia.length - i - 1; j++) {
 
@@ -66,14 +59,7 @@ public class ControladorMarca {
             return false;
         }
         if (indiceCod(cod) != -1) {
-            int x = indiceCod(cod);
-
-            for (int i = x; i < index - 1; i++) {
-                marcas[i] = marcas[i + 1];
-            }
-
-            marcas[index - 1] = null;
-            index--;
+            marcas.remove(indiceCod(cod));
             return true;
         } else {
             return false;
@@ -87,6 +73,12 @@ public class ControladorMarca {
             return;
         }
 
+        if (marca == null ||
+                marca.getNomeFantasia() == null ||
+                marca.getCnpj() == null ||
+                marca.getFabricante() == null) {
+            return;
+        }
         if (marca.getNomeFantasia().replace(" ", "").isEmpty()) {
             return;
         }
@@ -99,30 +91,19 @@ public class ControladorMarca {
             return;
         }
 
-        marca.setCod(marcas[x].getCod());
+        //Mesma referencia! Altera em 1 altera nos 2
+        Marca marcaExistente = marcas.get(x);
 
-        marcas[x] = marca;
-        for (int i = 0; i < estoque.getIndex(); i++) {
-            if(estoque.produtos[i].marca.cod == marca.getCod()){
-                estoque.produtos[i].marca = marca;
-            }
-        };
+        marcaExistente.setNomeFantasia(marca.getNomeFantasia());
+        marcaExistente.setCnpj(marca.getCnpj());
+        marcaExistente.setFabricante(marca.getFabricante());
     }
 
-    void aumentarCapacidade() {
-        Marca[] m = new Marca[marcas.length + 10];
-
-        for (int i = 0; i < index; i++) {
-            m[i] = marcas[i];
-        }
-
-        marcas = m;
-    }
 
     int indiceCod(int cod) {
-        if (index > 0) {
-            for (int i = 0; i < index; i++) {
-                if (marcas[i].getCod() == cod) {
+        if (!marcas.isEmpty()) {
+            for (int i = 0; i < marcas.size(); i++) {
+                if (marcas.get(i).getCod() == cod) {
                     return i;
                 }
             }

@@ -6,7 +6,7 @@ public class Main {
     static Scanner leia = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Sistema sistema = new Sistema();
+        Sistema sistema = new Sistema.getInstancia();
 
         init(sistema);
 
