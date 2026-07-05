@@ -6,7 +6,7 @@ public class Main {
     static Scanner leia = new Scanner(System.in);
 
     public static void main(String[] args) {
-        Sistema sistema = new Sistema.getInstancia();
+        Sistema sistema = Sistema.getInstancia();
 
         init(sistema);
 
@@ -52,9 +52,9 @@ public class Main {
 
         Marca m3 = new Marca(3, "Puma",  "Puma SE", "33.333.333/0001-33");
 
-        sistema.estoque.marcas.inserir(m1);
-        sistema.estoque.marcas.inserir(m2);
-        sistema.estoque.marcas.inserir(m3);
+        sistema.getEstoque().marcas.inserir(m1);
+        sistema.getEstoque().marcas.inserir(m2);
+        sistema.getEstoque().marcas.inserir(m3);
 
         Produto p1 = new Produto(1,"Chuteira Mercurial", m1 ,799.90,10);
 
@@ -70,28 +70,28 @@ public class Main {
 
         Item i2 = new Item(p3, 2);
 
-        sistema.carrinho.addItem(i1);
-        sistema.carrinho.addItem(i2);
+        sistema.getCarrinho().addItem(i1);
+        sistema.getCarrinho().addItem(i2);
         sistema.finalizarVenda("Gabriel Barbosa", 10, 5, 2026);
 
         Item i3 = new Item(p2, 1);
 
-        sistema.carrinho.addItem(i3);
+        sistema.getCarrinho().addItem(i3);
         sistema.finalizarVenda("Daniel Victor", 15, 5, 2026);
 
         Item i4 = new Item(p4, 1);
 
         Item i5 = new Item(p5, 3);
 
-        sistema.carrinho.addItem(i4);
-        sistema.carrinho.addItem(i5);
+        sistema.getCarrinho().addItem(i4);
+        sistema.getCarrinho().addItem(i5);
         sistema.finalizarVenda("Maria Souza", 20, 5, 2026);
 
-        sistema.estoque.inserir(p1, 1);
-        sistema.estoque.inserir(p2, 1);
-        sistema.estoque.inserir(p3, 2);
-        sistema.estoque.inserir(p4, 2);
-        sistema.estoque.inserir(p5, 3);
+        sistema.getEstoque().inserir(p1, 1);
+        sistema.getEstoque().inserir(p2, 1);
+        sistema.getEstoque().inserir(p3, 2);
+        sistema.getEstoque().inserir(p4, 2);
+        sistema.getEstoque().inserir(p5, 3);
     }
 
     static void menuAtend(Sistema sistema) {
@@ -120,16 +120,15 @@ public class Main {
                 case 1:
 
                     tabela(
-                            sistema.estoque.produtos,
-                            sistema.estoque.index,
+                            sistema.getEstoque().getProdutos(),
+                            sistema.getEstoque().index,
                             tam
                     );
 
                     System.out.println("Código do produto:");
                     int cod = leia.nextInt();
 
-                    Produto produto =
-                            sistema.estoque.produtos[sistema.estoque.indiceCod(cod)];
+                    Produto produto = sistema.getEstoque().getProdutos().get(sistema.getEstoque().indiceCod(cod));
 
                     if (produto != null) {
 
@@ -142,7 +141,7 @@ public class Main {
                         item.setQuant(quant);
                         item.setSubtotal(produto.getPreco() * quant);
 
-                        if (sistema.carrinho.addItem(item)) {
+                        if (sistema.getCarrinho().addItem(item)) {
                             System.out.println("Produto adicionado!");
                         } else {
                             System.out.println("Erro ao adicionar.");
@@ -156,8 +155,8 @@ public class Main {
                 case 2:
 
                     tabela(
-                            sistema.carrinho.itens,
-                            sistema.carrinho.index,
+                            sistema.getCarrinho().itens,
+                            sistema.getCarrinho().index,
                             tam
                     );
 

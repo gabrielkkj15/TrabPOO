@@ -4,6 +4,10 @@ public class Estoque {
     protected ControladorMarca marcas = new ControladorMarca();
     private ArrayList<Produto> produtos = new ArrayList<>();
 
+    public ArrayList<Produto> getProdutos() {
+        return produtos;
+    }
+
     //inserir
     boolean inserir(Produto produto, int codMarca) {
 

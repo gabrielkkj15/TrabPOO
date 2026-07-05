@@ -1,31 +1,31 @@
+import java.util.ArrayList;
+
 public class Carrinho {
 
-    private Item itens[] = new Item[1];
+    private ArrayList<Item> itens = new ArrayList<>();
     private double total;
-    int index;
 
     boolean addItem(Item item) {
 
         if (item.getQuant() > 0 && item.getQuant() <= item.getProduto().getQuant()) {
-            for (int i = 0; i < index; i++) {
-                if (itens[i].getProduto().getCod() == item.getProduto().getCod()) {
-                    if (itens[i].getQuant() + item.getQuant() <= item.getProduto().getQuant()) {
-                        itens[i].setQuant(itens[i].getQuant() + item.getQuant()); 
-                        System.out.println("Deu certo!");
-                    }else {
+
+            for (int i = 0; i < itens.size(); i++) {
+                Item a = itens.get(i);
+                if (a.getProduto().getCod() == item.getProduto().getCod()) {
+                    if (a.getQuant() + item.getQuant() <= item.getProduto().getQuant()) {
+                        a.setQuant(a.getQuant() + item.getQuant());
+                        total += item.getProduto().getPreco() * item.getQuant();
+                    }else{
                         return false;
                     }
                 }
             }
 
-            if (itens.length == index) {
-                aumentarCapacidade();
-            }
+
 
             item.setSubtotal(item.getProduto().getPreco() * item.getQuant());
             total += item.getProduto().getPreco() * item.getQuant();
-            itens[index] = item;
-            index++;
+            itens.add(item);
 
             return true;
         }
@@ -33,21 +33,12 @@ public class Carrinho {
         return false;
     }
 
-    public Item[] getItens() {
-        return itens;
+    public Item[] getCarrinho() {
+        return itens.toArray(Item[]::new);
     }
 
     public double getTotal() {
         return total;
     }
 
-    void aumentarCapacidade() {
-
-        Item[] m = new Item[itens.length + 1];
-
-        for (int i = 0; i < index; i++) {
-            m[i] = itens[i];
-        }
-        itens = m;
-    }
 }

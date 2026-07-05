@@ -19,8 +19,24 @@ public class Sistema {
         return instancia;
     }
 
-    Venda vendas[] = new Venda[10];
-    int index = 0;
+    private Venda vendas[] = new Venda[10];
+    private int index = 0;
+
+    public Carrinho getCarrinho() {
+        return carrinho;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public Venda getVendas() {
+        return vendas;
+    }
+
+    public Estoque getEstoque() {
+        return estoque;
+    }
 
     boolean finalizarVenda(String cliente, int dia, int mes, int ano) {
 
@@ -73,7 +89,7 @@ public class Sistema {
             Venda venda = vendas[i];
 
             for (int j = 0; j < venda.getIndex(); j++) {
-                if (venda.itensVendidos[j].produto.cod == codProduto) {
+                if (venda.getItensVendidos()[j].getProduto().getCod() == codProduto) {
                     return true;
                 }
             }

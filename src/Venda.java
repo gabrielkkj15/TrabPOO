@@ -1,9 +1,10 @@
 import java.util.Date;
+import  java.util.ArrayList;
 public class Venda {
     private int codigo;
     private String data;
     private double total;
-    private Item itensVendidos[];
+    private ArrayList<Item> itensVendidos = new ArrayList<>();
     private int index = 0;
     private String nomeCliente;
 
@@ -29,11 +30,7 @@ public class Venda {
         this.data = dia + "/" + mes + "/" + ano;
         this.total = carrinho.getTotal();
 
-        this.itensVendidos = new Item[carrinho.index];
-        for (int i = 0; i < carrinho.index; i++) {
-            this.itensVendidos[i] = carrinho.itens[i];
-
-        }
+        itensVendidos = carrinho;
 
         return true;
     }
@@ -58,7 +55,7 @@ public class Venda {
         return total;
     }
 
-    public Item getItensVendidos() {
+    public Item[] getItensVendidos() {
         return itensVendidos;
     }
 
