@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -264,7 +265,7 @@ public class Main {
                 case 2:
 
                     tabela(
-                            sistema.getEstoque().marcas.marcas,
+                            sistema.getEstoque().marcas.getMarcas(),
                             sistema.getEstoque().marcas.index,
                             tam
                     );
@@ -274,7 +275,7 @@ public class Main {
                 case 3:
 
                     tabela(
-                            sistema.getEstoque().marcas.marcas,
+                            sistema.getEstoque().marcas.getMarcas(),
                             sistema.getEstoque().marcas.index,
                             tam
                     );
@@ -294,22 +295,22 @@ public class Main {
                     System.out.println("Fabricante:");
                     marca.setFabricante(leia.nextLine());
 
-                    sistema.estoque.marcas.alterar(cod, marca, sistema.estoque);
+                    sistema.getEstoque().marcas.alterar(cod, marca, sistema.getEstoque());
 
                     break;
 
                 case 4:
 
                     tabela(
-                            sistema.getEstoque().marcas.marcas,
-                            sistema.estoque.marcas.index,
+                            sistema.getEstoque().marcas.getMarcas(),
+                            sistema.getEstoque().marcas.index,
                             tam
                     );
 
                     System.out.println("Código:");
                     cod = leia.nextInt();
 
-                    if (sistema.estoque.marcas.removerMarca(cod, sistema.estoque)){
+                    if (sistema.getEstoque().marcas.removerMarca(cod, sistema.getEstoque())){
                         System.out.println("Marca removida com sucesso!");
                     }else {
                         System.out.println("Erro! Marca não removida!");
@@ -363,22 +364,22 @@ public class Main {
                     produto.setQuant(leia.nextInt());
 
                     tabela(
-                            sistema.estoque.marcas.marcas,
-                            sistema.estoque.marcas.index,
+                            sistema.getEstoque().marcas.getMarcas(),
+                            sistema.getEstoque().marcas.index,
                             tam
                     );
 
                     System.out.println("Código da marca:");
                     int codMarca = leia.nextInt();
 
-                    sistema.estoque.inserir(produto, codMarca);
+                    sistema.getEstoque().inserir(produto, codMarca);
 
                     break;
 
                 case 2:
                     tabela(
-                            sistema.estoque.produtos,
-                            sistema.estoque.index,
+                            sistema.getEstoque().getProdutos(),
+                            sistema.getEstoque().index,
                             tam
                     );
                     break;
@@ -386,8 +387,8 @@ public class Main {
                 case 3:
 
                     tabela(
-                            sistema.estoque.produtos,
-                            sistema.estoque.index,
+                            sistema.getEstoque().getProdutos(),
+                            sistema.getEstoque().index,
                             tam
                     );
 
@@ -407,15 +408,15 @@ public class Main {
                     produto.setQuant(leia.nextInt());
 
                     tabela(
-                            sistema.estoque.marcas.marcas,
-                            sistema.estoque.marcas.index,
+                            sistema.getEstoque().marcas.getMarcas(),
+                            sistema.getEstoque().marcas.index,
                             tam
                     );
 
                     System.out.println("Código da marca:");
                     codMarca = leia.nextInt();
 
-                    sistema.estoque.alterar(
+                    sistema.getEstoque().alterar(
                             cod,
                             produto,
                             codMarca
@@ -426,8 +427,8 @@ public class Main {
                 case 4:
 
                     tabela(
-                            sistema.estoque.produtos,
-                            sistema.estoque.index,
+                            sistema.getEstoque().getProdutos(),
+                            sistema.getEstoque().index,
                             tam
                     );
 
@@ -471,8 +472,8 @@ public class Main {
 
 
                     tabela(
-                            sistema.estoque.produtos,
-                            sistema.estoque.index,
+                            sistema.getEstoque().getProdutos(),
+                            sistema.getEstoque().index,
                             tam
                     );
 
@@ -481,8 +482,8 @@ public class Main {
                 case 2:
 
                     tabela(
-                            sistema.estoque.ordemAlfabetica(),
-                            sistema.estoque.index,
+                            sistema.getEstoque().ordemAlfabetica(),
+                            sistema.getEstoque().index,
                             tam
                     );
 
@@ -492,8 +493,8 @@ public class Main {
 
 
                     tabela(
-                            sistema.estoque.marcas.marcas,
-                            sistema.estoque.marcas.index,
+                            sistema.getEstoque().marcas.getMarcas(),
+                            sistema.getEstoque().marcas.index,
                             tam
                     );
 
@@ -501,19 +502,15 @@ public class Main {
 
                 case 4:
 
-                    tabela(
-                            sistema.estoque.marcas.marcas,
-                            sistema.estoque.marcas.index,
-                            tam
-                    );
+                    tabela(sistema.getEstoque().marcas.getMarcas(), tam);
 
                     System.out.println("Código da marca:");
                     int codMarca = leia.nextInt();
                     leia.nextLine();
 
                     tabela(
-                            sistema.estoque.porMarca(sistema.estoque.marcas.buscarMarca(codMarca)),
-                            sistema.estoque.index,
+                            sistema.getEstoque().porMarca(sistema.getEstoque().marcas.buscarMarca(codMarca)),
+                            sistema.getEstoque().index,
                             tam
                     );
 
@@ -524,7 +521,7 @@ public class Main {
 
 
                     tabela(
-                            sistema.vendas,
+                            sistema.getVendas(),
                             sistema.index,
                             tam
                     );
@@ -544,7 +541,7 @@ public class Main {
                     int codVenda = leia.nextInt();
                     leia.nextLine();
                     if (sistema.buscarVenda(codVenda) != -1) {
-                        tabela(sistema.vendas[sistema.buscarVenda(codVenda)].getItensVendidos(), sistema.vendas[sistema.buscarVenda(codVenda)].index, tam);
+                        tabela(sistema.getVendas()[sistema.buscarVenda(codVenda)].getItensVendidos(), sistema.vendas[sistema.buscarVenda(codVenda)].index, tam);
                     }else{
                         System.out.println("Codigo invalido!");
                     }
@@ -568,9 +565,9 @@ public class Main {
         return texto;
     }
 
-    public static void tabela(Marca marcas[], int index, int tam) {
+    public static void tabela(ArrayList<Marca> marcas, int tam) {
 
-        if (index == 0) {
+        if (marcas.isEmpty()) {
             System.out.println("\nNenhuma marca cadastrada.");
             return;
         }
@@ -585,24 +582,26 @@ public class Main {
                 "FABRICANTE"
         );
 
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < marcas.size(); i++) {
 
-            if (marcas[i] == null) {
+            Marca marca = marcas.get(i);
+
+            if (marca == null) {
                 continue;
             }
 
             System.out.printf(formato,
-                    formatarTexto(String.valueOf(marcas[i].getCod(), tam),
-                    formatarTexto(marcas[i].getNomeFantasia(), tam),
-                    formatarTexto(marcas[i].getCnpj(), tam),
-                    formatarTexto(marcas[i].getFabricante(), tam)
+                    formatarTexto(String.valueOf(marca.getCod()), tam),
+                    formatarTexto(marca.getNomeFantasia(), tam),
+                    formatarTexto(marca.getCnpj(), tam),
+                    formatarTexto(marca.getFabricante(), tam)
             );
         }
     }
 
-    public static void tabela(Produto produtos[], int index, int tam) {
+    public static void tabela(ArrayList<Produto> produtos, int tam) {
 
-        if (index == 0) {
+        if (produtos.isEmpty()) {
             System.out.println("\nNenhum produto cadastrado.");
             return;
         }
@@ -618,25 +617,27 @@ public class Main {
                 "QUANT"
         );
 
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < produtos.size(); i++) {
 
-            if (produtos[i] == null) {
+            Produto produto = produtos.get(i);
+
+            if (produto == null) {
                 continue;
             }
 
             System.out.printf(formato,
-                    formatarTexto(String.valueOf(produtos[i].getCod(), tam),
-                    formatarTexto(produtos[i].getNome(), tam),
-                    formatarTexto(produtos[i].getMarca().getNomeFantasia(), tam),
-                    formatarTexto(String.format("%.2f", produtos[i].getPreco(), tam),
-                    formatarTexto(String.valueOf(produtos[i].getQuant(), tam)
+                    formatarTexto(String.valueOf(produto.getCod()), tam),
+                    formatarTexto(produto.getNome(), tam),
+                    formatarTexto(produto.getMarca().getNomeFantasia(), tam),
+                    formatarTexto(String.format("%.2f", produto.getPreco()), tam),
+                    formatarTexto(String.valueOf(produto.getQuant()), tam)
             );
         }
     }
 
-    public static void tabela(Venda vendas[], int index, int tam) {
+    public static void tabela(ArrayList<Venda> vendas, int tam) {
 
-        if (index == 0) {
+        if (vendas.isEmpty()) {
             System.out.println("\nNenhuma venda cadastrada.");
             return;
         }
@@ -650,23 +651,25 @@ public class Main {
                 "TOTAL"
         );
 
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < vendas.size(); i++) {
 
-            if (vendas[i] == null) {
+            Venda venda = vendas.get(i);
+
+            if (venda == null) {
                 continue;
             }
 
             System.out.printf(formato,
-                    formatarTexto(String.valueOf(vendas[i].getCodigo()), tam),
-                    formatarTexto(vendas[i].getNomeCliente(), tam),
-                    formatarTexto(String.format("%.2f", vendas[i].getTotal()), tam)
+                    formatarTexto(String.valueOf(venda.getCodigo()), tam),
+                    formatarTexto(vendas.get(i).getNomeCliente(), tam),
+                    formatarTexto(String.format("%.2f", venda.getTotal()), tam)
             );
         }
     }
 
-    public static void tabela(Item itens[], int index, int tam) {
+    public static void tabela(ArrayList<Item> itens, int tam) {
 
-        if (index == 0) {
+        if (itens.isEmpty()) {
             System.out.println("\nCarrinho vazio.");
             return;
         }
@@ -680,16 +683,18 @@ public class Main {
                 "SUBTOTAL"
         );
 
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < itens.size(); i++) {
 
-            if (itens[i] == null) {
+            Item item = itens.get(i);
+
+            if (item == null) {
                 continue;
             }
 
             System.out.printf(formato,
-                    formatarTexto(itens[i].getProduto().getNome(), tam),
-                    formatarTexto(String.valueOf(itens[i].getQuant(),tam),
-                    formatarTexto(String.format("%.2f", itens[i].getSubtotal()), tam)
+                    formatarTexto(item.getProduto().getNome(), tam),
+                    formatarTexto(String.valueOf(item.getQuant()), tam),
+                    formatarTexto(String.format("%.2f", itens.get(i).getSubtotal()), tam)
             );
         }
     }

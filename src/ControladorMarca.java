@@ -110,4 +110,8 @@ public class ControladorMarca {
         }
         return -1;
     }
+
+    public ArrayList<Marca> getMarcas() {
+        return marcas;
+    }
 }
