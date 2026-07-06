@@ -155,7 +155,7 @@ public class Main {
                 case 2:
 
                     tabela(
-                            sistema.getCarrinho().itens,
+                            sistema.getCarrinho().getItens(),
                             sistema.getCarrinho().index,
                             tam
                     );
@@ -257,15 +257,15 @@ public class Main {
                     System.out.println("Fabricante:");
                     marca.setFabricante(leia.nextLine());
 
-                    sistema.estoque.marcas.inserir(marca);
+                    sistema.getEstoque().marcas.inserir(marca);
 
                     break;
 
                 case 2:
 
                     tabela(
-                            sistema.estoque.marcas.marcas,
-                            sistema.estoque.marcas.index,
+                            sistema.getEstoque().marcas.marcas,
+                            sistema.getEstoque().marcas.index,
                             tam
                     );
 
@@ -274,8 +274,8 @@ public class Main {
                 case 3:
 
                     tabela(
-                            sistema.estoque.marcas.marcas,
-                            sistema.estoque.marcas.index,
+                            sistema.getEstoque().marcas.marcas,
+                            sistema.getEstoque().marcas.index,
                             tam
                     );
 
@@ -301,7 +301,7 @@ public class Main {
                 case 4:
 
                     tabela(
-                            sistema.estoque.marcas.marcas,
+                            sistema.getEstoque().marcas.marcas,
                             sistema.estoque.marcas.index,
                             tam
                     );

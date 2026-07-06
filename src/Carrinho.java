@@ -33,7 +33,7 @@ public class Carrinho {
         return false;
     }
 
-    public Item[] getCarrinho() {
+    public Item[] getItens() {
         return itens.toArray(Item[]::new);
     }
 
@@ -41,4 +41,7 @@ public class Carrinho {
         return total;
     }
 
+    public ArrayList<Item> getCarrinho() {
+        return itens;
+    }
 }

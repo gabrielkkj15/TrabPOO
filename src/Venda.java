@@ -5,23 +5,20 @@ public class Venda {
     private String data;
     private double total;
     private ArrayList<Item> itensVendidos = new ArrayList<>();
-    private int index = 0;
     private String nomeCliente;
 
     boolean realizarVenda(int codigo, String nomeCliente, Carrinho carrinho, int dia, int mes, int ano) {
-        if (carrinho == null || carrinho.index == 0) {
+        if (carrinho == null || carrinho.getCarrinho() == null || carrinho.getCarrinho().isEmpty()) {
             return false;
         }
         if (nomeCliente == null || nomeCliente.isEmpty()) {
             return false;
         }
 
-        for (int i = 0; i < carrinho.index; i++) {
-            if (carrinho.itens[i] == null) {
+        for (int i = 0; i < carrinho.getItens().length; i++) {
+            if (carrinho.getItens()[i] == null) {
                 return false;
             }
-            index++;
-
         }
         if (!dataValida(dia, mes, ano))return false;
 
@@ -30,7 +27,7 @@ public class Venda {
         this.data = dia + "/" + mes + "/" + ano;
         this.total = carrinho.getTotal();
 
-        itensVendidos = carrinho;
+        itensVendidos = carrinho.getCarrinho();
 
         return true;
     }
@@ -43,10 +40,6 @@ public class Venda {
         return data;
     }
 
-    public int getIndex() {
-        return index;
-    }
-
     public int getCodigo() {
         return codigo;
     }
@@ -56,7 +49,7 @@ public class Venda {
     }
 
     public Item[] getItensVendidos() {
-        return itensVendidos;
+        return itensVendidos.toArray(Item[]::new);
     }
 
     boolean dataValida(int dia, int mes, int ano) {

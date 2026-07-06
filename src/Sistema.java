@@ -1,8 +1,10 @@
+import java.util.ArrayList;
 import java.util.Date;
 public class Sistema {
 
     private Estoque estoque = new Estoque();
     private Carrinho carrinho = new Carrinho();
+    private ArrayList<Venda> vendas = new ArrayList<>();
 
     //Singleton dan vibecoder 10
     private static Sistema instancia;
@@ -19,19 +21,12 @@ public class Sistema {
         return instancia;
     }
 
-    private Venda vendas[] = new Venda[10];
-    private int index = 0;
-
     public Carrinho getCarrinho() {
         return carrinho;
     }
 
-    public int getIndex() {
-        return index;
-    }
-
-    public Venda getVendas() {
-        return vendas;
+    public Venda[] getVendas() {
+        return vendas.toArray(Venda[]::new);
     }
 
     public Estoque getEstoque() {
@@ -42,25 +37,15 @@ public class Sistema {
 
         Venda venda = new Venda();
 
-        boolean deuCerto =
-                venda.realizarVenda(index + 1, cliente, carrinho, dia, mes, ano);
+        boolean deuCerto = venda.realizarVenda(vendas.size(), cliente, carrinho, dia, mes, ano);
 
         if (deuCerto) {
-
-            for (int i = 0; i < carrinho.index; i++) {
-
-                carrinho.itens[i].produto.decrementar(
-                        carrinho.itens[i].quant
-                );
+            vendas.add(venda);
+            for (int i = 0; i < carrinho.getCarrinho().size(); i++) {
+                carrinho.getItens()[i].getProduto().decrementar(carrinho.getItens()[i].getQuant());
             }
 
-            if (vendas.length == index)aumentarCapacidade();
-
-            vendas[index] = venda;
-            index++;
-
             carrinho = new Carrinho();
-
             return true;
         }
 
@@ -72,23 +57,24 @@ public class Sistema {
     }
 
     Venda[] vendasData(String data) {
+        if(vendas.isEmpty())return null;
         int j = 0;
-        Venda[] vendas = new Venda[index];
+        Venda[] vendas = getVendas();
 
-        for (int i = 0; i < index; i++) {
-            if (this.vendas[i].getData().equals(data)) {
-                vendas[j++] = this.vendas[i];
+        for (int i = 0; i < this.vendas.size(); i++) {
+            if (vendas[i].getData().equals(data)) {
+                vendas[j++] = this.vendas.get(i);
             }
         }
         return vendas;
     }
 
     boolean produtoPossuiVenda(int codProduto) {
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < vendas.size(); i++) {
 
-            Venda venda = vendas[i];
+            Venda venda = vendas.get(i);
 
-            for (int j = 0; j < venda.getIndex(); j++) {
+            for (int j = 0; j < venda.getItensVendidos().length; j++) {
                 if (venda.getItensVendidos()[j].getProduto().getCod() == codProduto) {
                     return true;
                 }
@@ -99,22 +85,12 @@ public class Sistema {
     }
 
     int buscarVenda(int cod){
-        for (int i = 0; i < index; i++) {
-            if (vendas[i].getCodigo() == cod){
+        for (int i = 0; i < vendas.size(); i++) {
+            if (vendas.get(i).getCodigo() == cod){
                 return i;
             }
         }
         return -1;
-    }
-
-    void aumentarCapacidade() {
-        Venda[] p = new Venda[vendas.length + 10];
-
-        for (int i = 0; i < index; i++) {
-            p[i] = vendas[i];
-        }
-
-         vendas = p;
     }
 
 }
