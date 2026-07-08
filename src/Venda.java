@@ -6,7 +6,7 @@ public class Venda {
     private double total;
     private ArrayList<Item> itensVendidos = new ArrayList<>();
     private String nomeCliente;
-    private Usuário vendedor
+    private Usuario vendedor
 
     boolean realizarVenda(int codigo, String nomeCliente, Carrinho carrinho, int dia, int mes, int ano) {
         if (carrinho == null || carrinho.getCarrinho() == null || carrinho.getCarrinho().isEmpty()) {
