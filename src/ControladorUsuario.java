@@ -67,10 +67,10 @@ public class ControladorUsuario {
         return copia;
     }
 
-    boolean removerUsuario(int id, Sistema sistema) {
+    boolean removerUsuario(int id, Sistema sistema, Usuario usuario) {
         if (sistema.usuarioPossuiVenda(id)) {
-            return false;
-        }
+            return false;}
+        if (usuario == sistema.getUsuarios().buscarUsuario(indiceId(id)))return false;
         int x = indiceId(id);
         if (x != -1) {
             usuarios.remove(x);

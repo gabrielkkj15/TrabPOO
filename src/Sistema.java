@@ -6,6 +6,15 @@ public class Sistema {
     private Carrinho carrinho = new Carrinho();
     private ArrayList<Venda> vendas = new ArrayList<>();
     private ControladorUsuario usuarios = new ControladorUsuario();
+    private Usuario usuarioAtivo;
+
+    public Usuario getUsuarioAtivo() {
+        return usuarioAtivo;
+    }
+
+    public void setUsuarioAtivo(Usuario usuarioAtivo) {
+        this.usuarioAtivo = usuarioAtivo;
+    }
 
     //Singleton dan vibecoder 10
     private static Sistema instancia;

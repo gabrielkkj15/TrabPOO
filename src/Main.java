@@ -5,7 +5,6 @@ import java.util.Scanner;
 // Sistema de Vendas POO
 public class Main {
     static Scanner leia = new Scanner(System.in);
-    static Usuario usuarioLogado = null;
 
     public static void main(String[] args) {
         Sistema sistema = Sistema.getInstancia();
@@ -16,6 +15,7 @@ public class Main {
         do {
             System.out.println("\n=== SISTEMA DE VENDAS ===");
             System.out.println("1 - Realizar Login");
+            System.out.println("2 - Cadastro");
             System.out.println("0 - Sair");
             System.out.print("Opção: ");
 
@@ -24,6 +24,7 @@ public class Main {
 
             switch (op) {
                 case 1:
+                    if (sistema.getUsuarios().i)
                     System.out.print("Username: ");
                     String username = leia.nextLine();
                     System.out.print("Senha: ");
@@ -31,7 +32,6 @@ public class Main {
 
                     Usuario u = login(sistema, username, senha);
                     if (u != null) {
-                        usuarioLogado = u;
                         System.out.println("\nLogin com sucesso! Bem-vindo, " + u.getNome() + " (" + u.getTipo() + ").");
                         
                         if (u.getTipo().equalsIgnoreCase("admin")) {
