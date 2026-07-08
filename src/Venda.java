@@ -6,13 +6,16 @@ public class Venda {
     private double total;
     private ArrayList<Item> itensVendidos = new ArrayList<>();
     private String nomeCliente;
-    private Usuario vendedor
+    private Usuario vendedor;
 
-    boolean realizarVenda(int codigo, String nomeCliente, Carrinho carrinho, int dia, int mes, int ano) {
+    boolean realizarVenda(int codigo, String nomeCliente, Carrinho carrinho, Usuario vendedor, int dia, int mes, int ano) {
         if (carrinho == null || carrinho.getCarrinho() == null || carrinho.getCarrinho().isEmpty()) {
             return false;
         }
         if (nomeCliente == null || nomeCliente.isEmpty()) {
+            return false;
+        }
+        if (vendedor == null) {
             return false;
         }
 
@@ -27,6 +30,7 @@ public class Venda {
         this.nomeCliente = nomeCliente;
         this.data = dia + "/" + mes + "/" + ano;
         this.total = carrinho.getTotal();
+        this.vendedor = vendedor;
 
         itensVendidos = carrinho.getCarrinho();
 
@@ -51,6 +55,14 @@ public class Venda {
 
     public Item[] getItensVendidos() {
         return itensVendidos.toArray(Item[]::new);
+    }
+
+    public Usuario getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Usuario vendedor) {
+        this.vendedor = vendedor;
     }
 
     boolean dataValida(int dia, int mes, int ano) {

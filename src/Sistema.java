@@ -5,6 +5,7 @@ public class Sistema {
     private Estoque estoque = new Estoque();
     private Carrinho carrinho = new Carrinho();
     private ArrayList<Venda> vendas = new ArrayList<>();
+    private ControladorUsuario usuarios = new ControladorUsuario();
 
     //Singleton dan vibecoder 10
     private static Sistema instancia;
@@ -33,11 +34,15 @@ public class Sistema {
         return estoque;
     }
 
-    boolean finalizarVenda(String cliente, int dia, int mes, int ano) {
+    public ControladorUsuario getUsuarios() {
+        return usuarios;
+    }
+
+    boolean finalizarVenda(String cliente, Usuario vendedor, int dia, int mes, int ano) {
 
         Venda venda = new Venda();
 
-        boolean deuCerto = venda.realizarVenda(vendas.size(), cliente, carrinho, dia, mes, ano);
+        boolean deuCerto = venda.realizarVenda(vendas.size(), cliente, carrinho, vendedor, dia, mes, ano);
 
         if (deuCerto) {
             vendas.add(venda);
@@ -81,6 +86,16 @@ public class Sistema {
             }
         }
 
+        return false;
+    }
+
+    boolean usuarioPossuiVenda(int idUsuario) {
+        for (int i = 0; i < vendas.size(); i++) {
+            Venda venda = vendas.get(i);
+            if (venda.getVendedor() != null && venda.getVendedor().getId() == idUsuario) {
+                return true;
+            }
+        }
         return false;
     }
 
